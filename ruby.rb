@@ -2,13 +2,6 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-#uri = URI ('https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en')
-#params = {:names => 'TTP-2B'}
-#uri.query = URI.encode_www_form(params)
-#res = Net::HTTP.get_response (uri)
-#puts res.body
-
-
-uri = URI ('https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en')
-res = Net::HTTP.post_form(uri, ['names':'TTP-2B'])
+res = Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),
+ "[\"TTP-2B\"]", "Content-Type" => "application/json") # вместо "[\"TTP-2B\"]" можно ["TTP-2B"].to_json
 puts res.body
