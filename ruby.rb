@@ -29,18 +29,15 @@ result.each do |planet_id|
     planets_id<<planet_id.dig("planet_id")
 end
 
-#получаем сведения по каждой планете и помещаем в массив ее type_id
-planets_type_id=[]
+#получаем сведения по каждой планете и помещаем в хеш ее name и type_id - НЕ РАБОТАЕТ
+planets={}
 planets_id.each do |planet_id|
     result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility"))
     result = JSON.parse(result)
-    planets_type_id<<result.dig("type_id")
+    planets<<result.dig("name","type_id")
 end
 
-    #result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/2016/?datasource=tranquility&language=en"))
-    #result = JSON.parse(result)
-    #result = result["name"]
 
-puts planets_type_id
+puts planets_id
 
  # для TTP-2B
