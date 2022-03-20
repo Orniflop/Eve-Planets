@@ -13,7 +13,11 @@ if !(result.key?("systems")) #проверяем что это действит�
     abort #прерываем программу
 end
 
-#result.values_at("systems")
+result=result["systems"]
+#result=result.to_s
+result=result["id"]
+#result=result.values_at("name")
+#result=result.to_s
 #result=result.inspect
 
  
