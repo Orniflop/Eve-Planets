@@ -13,14 +13,11 @@ if !(result.key?("systems")) #проверяем что это действит�
     abort #прерываем программу
 end
 
-result=result["systems"]
-#result=result.to_s
-result=result["id"]
-#result=result.values_at("name")
-#result=result.to_s
-#result=result.inspect
+#получаем из хеша значение ключа, которое хранится в виде массива с хешем - {"systems":[{"id":30000812,"name":"TTP-2B"}]} для TTP-2B
+result=result["systems"] #получаем [{"id":30000812,"name":"TTP-2B"}]
+result=result[0] #получаем {"id":30000812,"name":"TTP-2B"}
+result=result["id"] #получаем 30000812
 
- 
 puts result
 
 
