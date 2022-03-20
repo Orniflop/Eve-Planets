@@ -16,7 +16,14 @@ end
 #получаем из хеша значение ключа, которое хранится в виде массива с хешем - {"systems":[{"id":30000812,"name":"TTP-2B"}]} для TTP-2B
 result=result["systems"] #получаем [{"id":30000812,"name":"TTP-2B"}]
 result=result[0] #получаем {"id":30000812,"name":"TTP-2B"}
-result=result["id"] #получаем 30000812
+system_id=result["id"] #получаем 30000812
+
+#получаем информацию о системе по ее id
+result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{system_id}/?datasource=tranquility&language=en"))
+result=JSON.parse(result)
+result=result["planets"] #получаем хеш с планетами системы
+
+result=result["planet_id"] #получаем хеш с id планет системы
 
 puts result
 
