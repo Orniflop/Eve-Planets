@@ -21,13 +21,17 @@ system_id=result["id"] #получаем 30000812
 #получаем информацию о системе по ее id
 result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{system_id}/?datasource=tranquility&language=en"))
 result=JSON.parse(result)
-result=result["planets"] #получаем хеш с планетами системы
+result=result["planets"] #получаем массив хешей с планетами системы
 
-result=result["planet_id"] #получаем хеш с id планет системы
+planet_id = {}
+result.each do |res|
+    planet_id=res.values_at["planet_id"]
+end
 
-puts result
+#result=result["planet_id"] #получаем хеш с id планет системы
 
+puts planets_id
 
-
+#result=result.join(",") #преобразовали массив в строку значений через запятую
 
  #{"systems":[{"id":30000812,"name":"TTP-2B"}]} для TTP-2B
