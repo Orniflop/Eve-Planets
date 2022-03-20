@@ -23,15 +23,11 @@ result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{sy
 result=JSON.parse(result)
 result=result["planets"] #получаем массив хешей с планетами системы
 
-planet_id = {}
-result.each do |res|
-    planet_id=res.values_at["planet_id"]
+#итерация массива для выбора в хеш всех planet_id
+result.each do |planet_id|
+    puts planet_id.dig("planet_id")
+
 end
 
-#result=result["planet_id"] #получаем хеш с id планет системы
-
-puts planets_id
-
-#result=result.join(",") #преобразовали массив в строку значений через запятую
 
  #{"systems":[{"id":30000812,"name":"TTP-2B"}]} для TTP-2B
