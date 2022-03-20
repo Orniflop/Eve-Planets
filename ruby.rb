@@ -29,7 +29,7 @@ result.each do |planet_id|
     planets_id<<planet_id.dig("planet_id")
 end
 
-#получаем сведения по каждой планете и помещаем в хеш ее type_id
+#получаем сведения по каждой планете и помещаем в массив ее type_id
 planets_type_id=[]
 planets_id.each do |planet_id|
     result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility"))
