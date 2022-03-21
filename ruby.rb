@@ -28,8 +28,7 @@ planets_id=result.map{|x| x["planet_id"]}
 #получаем сведения по каждой планете и помещаем в массив ее name и type_id
 planets=[]
 planets_id.each do |planet_id|
-    result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility")))
-    planets<<result.values_at("name","type_id")
+    planets<<JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility"))).values_at("name","type_id")
 end
 
 planets = planets.to_h #преобразуем массив в хеш
