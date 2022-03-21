@@ -1,4 +1,4 @@
-#задача: пользователь вводит название системы из вселенной игры eve-online, программа выдает сведения о начилии
+#задача: пользователь вводит название системы из вселенной игры eve-online, программа выдает сведения о наличии
 #планет в системе (название и тип планеты). На примере системы TTP-2B.
 
 #подключаем внешний руби-код для методов JSON, net/http и uri
@@ -13,10 +13,7 @@ result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/
 ["#{system_name}"].to_json).body)
 
 #проверяем что это действительно солнечная система, иначе прерываем программу
-if !(result.key?("systems"))
-    puts "Такой системы нет!"
-    abort
-end
+abort "Такой системы нет!" unless result.key?("systems")
 
 #получаем из хеша значение id, пример для TTP-2B: {"systems":[{"id":30000812,"name":"TTP-2B"}]}
 system_id = result.dig('systems', 0, 'id') #получаем 30000812
@@ -25,11 +22,15 @@ system_id = result.dig('systems', 0, 'id') #получаем 30000812
 result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{system_id}/?datasource=tranquility&language=en")))
 result = result["planets"]
 
-#итерация массива для выбора всех planet_id и помещение их в массив
+#итерация массива для выбора всех planet_id и помещение их в массив - ПЕРЕДЕЛАТЬ КАК НИЖЕ
 planets_id=[]
 result.each do |planet_id|
     planets_id<<planet_id.dig("planet_id")
 end
+
+#Вместо each используй map. dig тут не нужен, так как один аргумент всего.
+#result.map{|x| x['planet_id']}
+#Если новый руби, можно юзать так: result.map{_1['planet_id']}
 
 #получаем сведения по каждой планете и помещаем в массив ее name и type_id
 planets=[]
