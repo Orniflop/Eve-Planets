@@ -1,6 +1,3 @@
-#задача: пользователь вводит название системы из вселенной игры eve-online, программа выдает сведения о наличии
-#планет в системе (название и тип планеты). На примере системы TTP-2B.
-
 #подключаем внешний руби-код для методов JSON, net/http и uri
 require 'net/http'
 require 'uri'
@@ -34,8 +31,7 @@ planets = planets.to_h #преобразуем массив в хеш
 
 #по значению хеша получаем тип планеты (например "Planet (Gas)"), обрезаем лишнее и в хеше меняем значение на тип планеты 
 planets.each do |key, value|
-    result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))
-    planets[key] = result["name"].chop.sub("Planet (", "") #берем из хеша значение и обрезаем ) и Planet (
+    planets[key] = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))["name"].chop.sub("Planet (", "")
 end
 
 puts planets
