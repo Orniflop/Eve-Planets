@@ -23,21 +23,13 @@ result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/s
 result = result["planets"]
 
 #итерация массива для выбора всех planet_id и помещение их в массив - ПЕРЕДЕЛАТЬ КАК НИЖЕ
-planets_id=[]
-result.each do |planet_id|
-    planets_id<<planet_id.dig("planet_id")
-end
-
-#Вместо each используй map. dig тут не нужен, так как один аргумент всего.
-#result.map{|x| x['planet_id']}
-#Если новый руби, можно юзать так: result.map{_1['planet_id']}
+planets_id=result.map{|x| x["planet_id"]}
 
 #получаем сведения по каждой планете и помещаем в массив ее name и type_id
 planets=[]
 planets_id.each do |planet_id|
     result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility")))
-    result = result.values_at("name","type_id")
-    planets<<result
+    planets<<result.values_at("name","type_id")
 end
 
 planets = planets.to_h #преобразуем массив в хеш
@@ -45,8 +37,7 @@ planets = planets.to_h #преобразуем массив в хеш
 #по значению хеша получаем тип планеты (например "Planet (Gas)"), обрезаем лишнее и в хеше меняем значение на тип планеты 
 planets.each do |key, value|
     result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))
-    result = result["name"].chop.sub("Planet (", "") #берем из хеша значение и обрезаем ) и Planet (
-    planets[key] = result
+    planets[key] = result["name"].chop.sub("Planet (", "") #берем из хеша значение и обрезаем ) и Planet (
 end
 
 puts planets
