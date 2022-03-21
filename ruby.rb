@@ -15,14 +15,13 @@ result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/
 #проверяем что это действительно солнечная система, иначе прерываем программу
 abort "Такой системы нет!" unless result.key?("systems")
 
-#получаем из хеша значение id, пример для TTP-2B: {"systems":[{"id":30000812,"name":"TTP-2B"}]}
-system_id = result.dig('systems', 0, 'id') #получаем 30000812
+#получаем из хеша для TTP-2B: {"systems":[{"id":30000812,"name":"TTP-2B"}]} значение 30000812 
+system_id = result.dig('systems', 0, 'id')
 
 #получаем информацию о системе по ее id и из нее выбираем в массив хеши с планетами системы
-result = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{system_id}/?datasource=tranquility&language=en")))
-result = result["planets"]
+result=JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/systems/#{system_id}/?datasource=tranquility&language=en")))["planets"]
 
-#итерация массива для выбора всех planet_id и помещение их в массив - ПЕРЕДЕЛАТЬ КАК НИЖЕ
+#итерация массива для выбора всех planet_id и помещение их в массив
 planets_id=result.map{|x| x["planet_id"]}
 
 #получаем сведения по каждой планете и помещаем в массив ее name и type_id
