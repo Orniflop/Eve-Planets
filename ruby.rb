@@ -41,10 +41,13 @@ end
 planets = planets.to_h #преобразуем массив в хеш
 
 #получаем тип планеты (Barren и т.п.) по значению хеша и в хеше меняем значение на тип планеты 
-planets.each do |value|
+planets.each do |key, value|
     result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en"))
     result = JSON.parse(result)
-
+    result = result["name"]
+    result = result.chop
+    result = result.sub("Planet (", "")
+    planets[key] = result
 end
 
 puts planets
