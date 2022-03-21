@@ -13,7 +13,7 @@ if !(result.key?("systems")) #проверяем что это действит�
     abort #прерываем программу
 end
 
-#получаем из хеша значение ключа, которое хранится в виде массива с хешем - {"systems":[{"id":30000812,"name":"TTP-2B"}]} для TTP-2B
+#получаем из хеша значение ключа, пример для TTP-2B: {"systems":[{"id":30000812,"name":"TTP-2B"}]}
 result = result["systems"] #получаем [{"id":30000812,"name":"TTP-2B"}]
 result = result[0] #получаем {"id":30000812,"name":"TTP-2B"}
 system_id = result["id"] #получаем 30000812
@@ -40,16 +40,13 @@ end
 
 planets = planets.to_h #преобразуем массив в хеш
 
-#получаем тип планеты (Barren и т.п.) по значению хеша и в хеше меняем значение на тип планеты 
+#по значению хеша получаем тип планеты ("Planet (Gas)"), обрезаем лишнее и в хеше меняем значение на тип планеты 
 planets.each do |key, value|
     result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en"))
     result = JSON.parse(result)
     result = result["name"]
-    result = result.chop
-    result = result.sub("Planet (", "")
+    result = result.chop.sub("Planet (", "") #обрезаем ) и "Planet (
     planets[key] = result
 end
 
 puts planets
-
- # для TTP-2B
