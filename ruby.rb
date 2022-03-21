@@ -29,15 +29,18 @@ result.each do |planet_id|
     planets_id<<planet_id.dig("planet_id")
 end
 
-#получаем сведения по каждой планете и помещаем в хеш ее name и type_id - НЕ РАБОТАЕТ
+#получаем сведения по каждой планете и помещаем в массив ее name и type_id
 planets={}
 planets_id.each do |planet_id|
     result = Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/planets/#{planet_id}/?datasource=tranquility"))
     result = JSON.parse(result)
-    planets<<result.dig("name","type_id")
+    result.select{|key,value| key="name" or key="type_id"}
+    
+    planets.set(name,type_id)
 end
 
+#в хеше меняем type_id на тип планеты Barren и т.п. и выводим на экран имя и тип планеты
 
-puts planets_id
+puts planets
 
  # для TTP-2B
