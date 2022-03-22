@@ -32,7 +32,6 @@ planets = planets.to_h #преобразуем массив в хеш
 #по значению хеша получаем тип планеты (например "Planet (Gas)"), обрезаем лишнее и в хеше меняем значение на тип планеты 
 planets.each_pair do |key, value|
     planets[key] = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))["name"].chop.sub("Planet (", "")
-    puts "Имя планеты: #{key}, тип планеты: #{value}"
 end
 
 puts planets
