@@ -34,6 +34,8 @@ planets.each_pair do |key, value|
     planets[key] = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))["name"].chop.sub("Planet (", "")
 end
 
+puts planets
+
 #добавляем все планетарные ресурсы в игре
 Raw_Resource={"Aqueous Liquids":["Barren","Storm","Temperate","Ice","Gas","Oceanic"],"Autotrophs":["Temperate"],"Base Metals":["Barren","Storm","Gas","Plasma","Lava"],"Carbon Compounds":["Barren","Temperate","Oceanic"],"Complex Organisms":["Temperate","Oceanic"],"Felsic Magma":["Lava"],"Heavy Metals":["Ice","Plasma","Lava"],"Ionic Solutions":["Storm","Gas"],"Microorganisms":["Barren","Temperate","Ice","Oceanic"],"Noble Gas":["Storm","Ice","Gas"],"Noble Metals":["Barren","Plasma"],"Non-CS Crystals":["Plasma","Lava"],"Planktic Colonies":["Ice","Oceanic"],"Reactive Gas":["Gas"],"Suspended Plasma":["Storm","Plasma","Lava"]}
 Tier1={"Aqueous Liquids":["Water"],"Autotrophs":["Industrial Fibers"],"Base Metals":["Reactive Metals"],"Carbon Compounds":["Biofuels"],"Complex Organisms":["Proteins"],"Felsic Magma":["Silicon"],"Heavy Metals":["Toxic Metals"],"Ionic Solutions":["Electrolytes"],"Microorganisms":["Bacteria"],"Noble Gas":["Oxygen"],"Noble Metals":["Precious Metals"],"Non-CS Crystals":["Chiral Structures"],"Planktic Colonies":["Biomass"],"Reactive Gas":["Oxidizing Compound"],"Suspended Plasma":["Plasmoids"]}
@@ -42,40 +44,30 @@ Tier3={"Biotech Research Reports":["Construction Blocks","Livestock","Nanites"],
 Tier4={"Broadcast Node":["Data Chips","Neocoms","High-Tech Transmitters"],"Integrity Response Drones":["Gel-Matrix Biopaste","Planetary Vehicles","Hazmat Detection Systems"],"Nano-Factory":["Industrial Explosives","Ukomi Superconductors","Reactive Metals"],"Organic Mortar Applicators":["Condensates","Robotics","Bacteria"],"Recursive Computing Module":["Synthetic Synapses","Transcranial Microcontrollers","Guidance Systems"],"Self-Harmonizing Power Core":["Nuclear Reactors","Camera Drones","Hermetic Membranes"],"Sterile Conduits":["Vaccines","Water","Smartfab Units"],"Wetware Mainframe":["Biotech Research Reports","Supercomputers","Cryoprotectant Solution"]}
 
 #проверяем какие базовые ресурсы можно добывать в системе
-system_Raw_Resource=[]
-planets.each do |value1|
-    Raw_Resource.each_pair do |key, value2|
-        system_Raw_Resource<<key if value1=value2
+system_Raw_Resource = []
+planets.each_value do |value1|
+    Raw_Resource.each do |key, value2|
+        system_Raw_Resource<<key if value2.include?(value1)
     end
 end
-system_Raw_Resource=system_Raw_Resource.uniq
+system_Raw_Resource = system_Raw_Resource.uniq
 
-#проверяем какие ресурсы можно построить из базовых в системе путем создания и вызова метода
-def system_tiers (tier1, tier2)
-    system_tier=[]
-    tier1.each do |value1|
-        tier2.each_pair do |key, value2|
-            system_tier<<value2 if value1=key
-        end
+puts "Базовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
+
+#проверяем какие Tier1 ресурсы можно сделать в системе из базовых - НЕ РАБОТАЕТ
+system_tier1 = []
+system_Raw_Resource.each do |value1|
+    Tier1.each do |key, value2|
+        system_tier1<<value2 if key.include?(value1)
     end
-    system_tier=system_tier.uniq
-    return system_tier
 end
 
-system_tier1 = system_tiers(system_Raw_Resource,Tier1)
-system_tier2=[]
-system_tier3=[]
-system_tier4=[]
-
-#system_tier1=[]
-#system_Raw_Resource.each do |value1|
-#    Tier1.each_pair do |key, value2|
-#        system_tier1<<value2 if value1=key
-#    end
-#end
-#system_tier1=system_tier1.uniq
+puts system_tier1
 
 #выводим виды планет и ресурсов в заданной системе
-puts planets
-puts "Базовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
-puts system_tier1
+#puts "Планеты системы: #{planets.each_key} (#{planets.each_value})"
+#puts planets
+#puts "Ресурсы Tier1: #{system_tier1.join(', ')}"
+#puts "Ресурсы Tier2: #{system_tier2.join(', ')}"
+#puts "Ресурсы Tier3: #{system_tier3.join(', ')}"
+#puts "Ресурсы Tier4: #{system_tier4.join(', ')}"
