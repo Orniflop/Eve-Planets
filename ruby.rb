@@ -87,7 +87,7 @@ Tier2.each do |key, value1|
 end
 
 arr2.difference(arr1).empty? - попробовать
-
+еще попробовать пересечение массивов типа что-то типо arr1 == arr1 & arr2
 
 #выводим виды планет и ресурсов в заданной системе
 #puts "\nПланеты системы: #{planets.each_key} (#{planets.each_value})"
