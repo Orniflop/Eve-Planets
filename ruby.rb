@@ -51,17 +51,18 @@ end
 system_Raw_Resource=system_Raw_Resource.uniq
 
 #проверяем какие ресурсы можно построить из базовых в системе путем создания и вызова метода
-def tiers (tier1, tier2)
-    system_Raw_Resource.each do |value1|
-        Tier1.each_pair do |key, value2|
-            system_tier1<<value2 if value1=key
+def system_tiers (tier1, tier2)
+    system_tier=[]
+    tier1.each do |value1|
+        tier2.each_pair do |key, value2|
+            system_tier<<value2 if value1=key
         end
     end
-end
-system_tier1=system_tier1.uniq
+    system_tier=system_tier.uniq
+    return system_tier
 end
 
-system_tier1=[]
+system_tier1 = system_tiers(system_Raw_Resource,Tier1)
 system_tier2=[]
 system_tier3=[]
 system_tier4=[]
