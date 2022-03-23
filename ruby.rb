@@ -51,16 +51,28 @@ end
 system_Raw_Resource=system_Raw_Resource.uniq
 
 #проверяем какие ресурсы можно построить из базовых в системе путем создания и вызова метода
-#def tiers (system_tier1, system_tier2)
-
-#end
-system_tier1=[]
-system_Raw_Resource.each do |value1|
-    Tier1.each_pair do |key, value2|
-        system_tier1<<value2 if value1=key
+def tiers (tier1, tier2)
+    system_Raw_Resource.each do |value1|
+        Tier1.each_pair do |key, value2|
+            system_tier1<<value2 if value1=key
+        end
     end
 end
 system_tier1=system_tier1.uniq
+end
+
+system_tier1=[]
+system_tier2=[]
+system_tier3=[]
+system_tier4=[]
+
+#system_tier1=[]
+#system_Raw_Resource.each do |value1|
+#    Tier1.each_pair do |key, value2|
+#        system_tier1<<value2 if value1=key
+#    end
+#end
+#system_tier1=system_tier1.uniq
 
 #выводим виды планет и ресурсов в заданной системе
 puts planets
