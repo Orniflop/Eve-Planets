@@ -60,7 +60,22 @@ system_Raw_Resource.each do |value1|
     end
 end
 
-#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1
+#создаем метод для рассчета Tier2-4 ресурсов - НЕ РАБОТАЕТ
+#def tiers (tier1, tier2)
+#    tier = []
+#    tier1.each do |key, value1|
+#        a = 0
+#       b = value1.count
+#        value1.each do |value2|
+#            tier2.include?(value2) ? a = a+1 : a=0
+#        end
+#        tier<< key if a=b
+#    end
+#    return tier
+#end
+#system_tier2=tiers(Tier2, system_tier1)
+
+#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
 system_tier2 = []
 Tier2.each do |key, value1|
     a = 0
