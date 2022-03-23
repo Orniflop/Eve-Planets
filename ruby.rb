@@ -56,24 +56,25 @@ system_Raw_Resource = system_Raw_Resource.uniq
 system_tier1 = []
 system_Raw_Resource.each do |value1|
     Tier1.each do |key, value2|
-        system_tier1<<value2 if key.include?(value1)
+        system_tier1 << value2 if key.include?(value1)
     end
 end
-system_tier1=system_tier1.uniq
 
-#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
-#system_tier2 = []
-#system_tier1.each do |value1|
-#    Tier2.each do |key, value2|
-#        system_tier1<<value2 if key.include?(value1)
-#    end
-#end
-#system_tier2=system_tier2.uniq
+#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1
+system_tier2 = []
+Tier2.each do |key, value1|
+    a = 0
+    b = value1.count
+    value1.each do |value2|
+        a = a+1 if system_tier1.include?(value2)
+    end
+    system_tier2 << key if a=b
+end
 
 #выводим виды планет и ресурсов в заданной системе
-#puts "Планеты системы: #{planets.each_key} (#{planets.each_value})"
-puts "Базовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
-puts "Ресурсы Tier1: #{system_tier1.join(', ')}"
-#puts "Ресурсы Tier2: #{system_tier2.join(', ')}\n"
+#puts "\nПланеты системы: #{planets.each_key} (#{planets.each_value})"
+puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
+puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
+puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
 #puts "Ресурсы Tier3: #{system_tier3.join(', ')}"
 #puts "Ресурсы Tier4: #{system_tier4.join(', ')}"
