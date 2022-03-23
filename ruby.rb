@@ -41,7 +41,7 @@ Tier2={"Biocells":["Biofuels","Precious Metals"],"Construction Blocks":["Toxic M
 Tier3={"Biotech Research Reports":["Construction Blocks","Livestock","Nanites"],"Camera Drones":["Rocket Fuel","Silicate Glass"],"Condensates":["Coolant","Oxides"],"Cryoprotectant Solution":["Synthetic Oil","Fertilizer","Test Cultures"],"Data Chips":["Supertensile Plastics","Microfiber Shielding"],"Gel-Matrix Biopaste":["Superconductors","Biocells","Oxides"],"Guidance Systems":["Water-Cooled CPU","Transmitter"],"Hazmat Detection Systems":["Transmitter","Viral Agent","Polytextiles"],"Hermetic Membranes":["Polyaramids","Genetically Enhanced Livestock"],"High-Tech Transmitters":["Transmitter","Polyaramids"],"Industrial Explosives":["Fertilizer","Polytextiles"],"Neocoms":["Biocells","Silicate Glass"],"Nuclear Reactors":["Enriched Uranium","Microfiber Shielding"],"Planetary Vehicles":["Supertensile Plastics","Miniature Electronics","Mechanical Parts"],"Robotics":["Consumer Electronics","Mechanical Parts"],"Smartfab Units":["Miniature Electronics","Construction Blocks"],"Supercomputers":["Water-Cooled CPU","Coolant","Consumer Electronics"],"Synthetic Synapses":["Supertensile Plastics","Test Cultures"],"Transcranial Microcontrollers":["Biocells","Nanites"],"Ukomi Superconductors":["Superconductors","Synthetic Oil"],"Vaccines":["Livestock","Viral Agent"]}
 Tier4={"Broadcast Node":["Data Chips","Neocoms","High-Tech Transmitters"],"Integrity Response Drones":["Gel-Matrix Biopaste","Planetary Vehicles","Hazmat Detection Systems"],"Nano-Factory":["Industrial Explosives","Ukomi Superconductors","Reactive Metals"],"Organic Mortar Applicators":["Condensates","Robotics","Bacteria"],"Recursive Computing Module":["Synthetic Synapses","Transcranial Microcontrollers","Guidance Systems"],"Self-Harmonizing Power Core":["Nuclear Reactors","Camera Drones","Hermetic Membranes"],"Sterile Conduits":["Vaccines","Water","Smartfab Units"],"Wetware Mainframe":["Biotech Research Reports","Supercomputers","Cryoprotectant Solution"]}
 
-#проверяем какие Raw_Resource можно добывать в системе
+#проверяем какие базовые ресурсы можно добывать в системе
 system_Raw_Resource=[]
 planets.each do |value1|
     Raw_Resource.each_pair do |key, value2|
@@ -49,6 +49,9 @@ planets.each do |value1|
     end
 end
 system_Raw_Resource=system_Raw_Resource.uniq
+
+#проверяем какие ресурсы можно построить из базовых в системе
+
 
 #выводим виды планет и ресурсов в заданной системе
 puts planets
