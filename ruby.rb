@@ -50,9 +50,19 @@ planets.each do |value1|
 end
 system_Raw_Resource=system_Raw_Resource.uniq
 
-#проверяем какие ресурсы можно построить из базовых в системе
+#проверяем какие ресурсы можно построить из базовых в системе путем создания и вызова метода
+#def tiers (system_tier1, system_tier2)
 
+#end
+system_tier1=[]
+system_Raw_Resource.each do |value1|
+    Tier1.each_pair do |key, value2|
+        system_tier1<<value2 if value1=key
+    end
+end
+system_tier1=system_tier1.uniq
 
 #выводим виды планет и ресурсов в заданной системе
 puts planets
 puts "Базовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
+puts system_tier1
