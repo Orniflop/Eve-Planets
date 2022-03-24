@@ -58,10 +58,10 @@ system_Raw_Resource.each do |value1|
     end
 end
 
-#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1
+#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕПРАВИЛЬНО
 system_tier2 = []
-Tier2.each do |key, value2|
-    system_tier2 << key if value2 == system_tier1 & value2 #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
+Tier2.each do |key, value|
+    system_tier2 << key if value.difference(system_tier1).empty?
 end
 
 #выводим виды планет и ресурсов в заданной системе
@@ -70,5 +70,5 @@ puts planets
 puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
 puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
 puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
-#puts "Ресурсы Tier3: #{system_tier3.join(', ')}"
-#puts "Ресурсы Tier4: #{system_tier4.join(', ')}"
+#puts "\nРесурсы Tier3: #{system_tier3.join(', ')}"
+#puts "\nРесурсы Tier4: #{system_tier4.join(', ')}"
