@@ -60,29 +60,14 @@ system_Raw_Resource.each do |value1|
     end
 end
 
-#создаем метод для рассчета Tier2-4 ресурсов - НЕ РАБОТАЕТ
-#def tiers (tier1, tier2)
-#    tier = []
-#    tier1.each do |key, value1|
-#        a = 0
-#       b = value1.count
-#        value1.each do |value2|
-#            tier2.include?(value2) ? a = a+1 : a=0
-#        end
-#        tier<< key if a=b
-#    end
-#    return tier
-#end
-#system_tier2=tiers(Tier2, system_tier1)
-
 #проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
 system_tier2 = []
 Tier2.each do |key, value2|
     system_tier2 << key if value2 == system_tier1&value2
+    #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
 end
 
 #arr2.difference(arr1).empty? - попробовать
-#еще попробовать пересечение массивов типа что-то типо arr1 == arr1 & arr2
 
 #выводим виды планет и ресурсов в заданной системе
 #puts "\nПланеты системы: #{planets.each_key} (#{planets.each_value})"
