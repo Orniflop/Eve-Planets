@@ -1,0 +1,7 @@
+Tier2={"Biocells"=>["Biofuels","Precious Metals"],"Construction Blocks"=>["Toxic Metals","Reactive Metals"],"Consumer Electronics"=>["Toxic Metals", "Chiral Structures"],"Coolant"=>["Electrolytes","Water"],"Enriched Uranium"=>["Toxic Metals","Precious Metals"],"Fertilizer"=>["Bacteria","Proteins"],"Genetically Enhanced Livestock"=>["Proteins","Biomass"],"Livestock"=>["Biofuels","Proteins"],"Mechanical Parts"=>["Reactive Metals","Precious Metals"],"Microfiber Shielding"=>["Silicon","Industrial Fibers"],"Miniature Electronics"=>["Silicon","Chiral Structures"],"Nanites"=>["Reactive Metals","Bacteria"],"Oxides"=>["Oxidizing Compound","Oxygen"],"Polyaramids"=>["Oxidizing Compound","Industrial Fibers"],"Polytextiles"=>["Biofuels","Industrial Fibers"],"Rocket Fuel"=>["Electrolytes","Plasmoids"],"Silicate Glass"=>["Oxidizing Compound","Silicon"],"Superconductors"=>["Plasmoids","Water"],"Supertensile Plastics"=>["Oxygen","Biomass"],"Synthetic Oil"=>["Electrolytes","Oxygen"],"Test Cultures"=>["Bacteria","Water"],"Transmitter"=>["Chiral Structures","Plasmoids"],"Viral Agent"=>["Bacteria","Biomass"],"Water-Cooled CPU"=>["Reactive Metals","Water"]}
+system_tier1=["Water", "Reactive Metals", "Biofuels", "Bacteria", "Precious Metals", "Silicon", "Toxic Metals", "Chiral Structures", "Plasmoids", "Electrolytes", "Oxygen", "Proteins", "Biomass", "Oxidizing Compound"]
+system_tier2 = []
+Tier2.each do |key, value2|
+  system_tier2 << key if value2 == system_tier1&value2
+end
+puts system_tier2
