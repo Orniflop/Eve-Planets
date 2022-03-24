@@ -2,7 +2,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require "byebug"
+#require "byebug" byebug
 
 system_name="TTP-2B" #gets.chomp #запрашиваем у пользователя имя системы и обрезаем ей \n
 
@@ -54,16 +54,14 @@ system_Raw_Resource = system_Raw_Resource.uniq
 system_tier1 = []
 system_Raw_Resource.each do |value1|
     Tier1.each do |key, value2|
-        system_tier1 << value2 if key.include?(value1)
+        system_tier1 << value2[0] if key.include?(value1)
     end
 end
 
-#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
+#проверяем какие Tier2 ресурсы можно сделать в системе из Tier1
 system_tier2 = []
 Tier2.each do |key, value2|
-    byebug
-    system_tier2 << key if value2 == system_tier1 & value2
-    #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
+    system_tier2 << key if value2 == system_tier1 & value2 #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
 end
 
 #выводим виды планет и ресурсов в заданной системе
