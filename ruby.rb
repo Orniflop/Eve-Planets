@@ -77,17 +77,12 @@ end
 
 #проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
 system_tier2 = []
-Tier2.each do |key, value1|
-    b = value1.count
-    value1.each do |value2|
-        a = 0
-        system_tier1.include?(value2) ? a = a+1 : a = 0
-    end
-    a=b ? system_tier2 << key : system_tier2 << nil
+Tier2.each do |key, value2|
+    system_tier2 << key if value2 == system_tier1&value2
 end
 
-arr2.difference(arr1).empty? - попробовать
-еще попробовать пересечение массивов типа что-то типо arr1 == arr1 & arr2
+#arr2.difference(arr1).empty? - попробовать
+#еще попробовать пересечение массивов типа что-то типо arr1 == arr1 & arr2
 
 #выводим виды планет и ресурсов в заданной системе
 #puts "\nПланеты системы: #{planets.each_key} (#{planets.each_value})"
