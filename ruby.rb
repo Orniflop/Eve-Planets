@@ -34,8 +34,6 @@ planets.each_pair do |key, value|
     planets[key] = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))["name"].chop.sub("Planet (", "")
 end
 
-puts planets
-
 #добавляем все планетарные ресурсы в игре
 Raw_Resource={"Aqueous Liquids"=>["Barren","Storm","Temperate","Ice","Gas","Oceanic"],"Autotrophs"=>["Temperate"],"Base Metals"=>["Barren","Storm","Gas","Plasma","Lava"],"Carbon Compounds"=>["Barren","Temperate","Oceanic"],"Complex Organisms"=>["Temperate","Oceanic"],"Felsic Magma"=>["Lava"],"Heavy Metals"=>["Ice","Plasma","Lava"],"Ionic Solutions"=>["Storm","Gas"],"Microorganisms"=>["Barren","Temperate","Ice","Oceanic"],"Noble Gas"=>["Storm","Ice","Gas"],"Noble Metals"=>["Barren","Plasma"],"Non-CS Crystals"=>["Plasma","Lava"],"Planktic Colonies"=>["Ice","Oceanic"],"Reactive Gas"=>["Gas"],"Suspended Plasma"=>["Storm","Plasma","Lava"]}
 Tier1={"Aqueous Liquids"=>["Water"],"Autotrophs"=>["Industrial Fibers"],"Base Metals"=>["Reactive Metals"],"Carbon Compounds"=>["Biofuels"],"Complex Organisms"=>["Proteins"],"Felsic Magma"=>["Silicon"],"Heavy Metals"=>["Toxic Metals"],"Ionic Solutions"=>["Electrolytes"],"Microorganisms"=>["Bacteria"],"Noble Gas"=>["Oxygen"],"Noble Metals"=>["Precious Metals"],"Non-CS Crystals"=>["Chiral Structures"],"Planktic Colonies"=>["Biomass"],"Reactive Gas"=>["Oxidizing Compound"],"Suspended Plasma"=>["Plasmoids"]}
@@ -67,12 +65,13 @@ Tier2.each do |key, value2|
     #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
 end
 
-#arr2.difference(arr1).empty? - попробовать
+puts system_tier2
 
 #выводим виды планет и ресурсов в заданной системе
-#puts "\nПланеты системы: #{planets.each_key} (#{planets.each_value})"
+puts planets
+#puts "\nПланеты системы: #{planets.each_key(key)} (#{planets.each_value(value)})"
 puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
 puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
-puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
+#puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
 #puts "Ресурсы Tier3: #{system_tier3.join(', ')}"
 #puts "Ресурсы Tier4: #{system_tier4.join(', ')}"
