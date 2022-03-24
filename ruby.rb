@@ -2,12 +2,12 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require "byebug"
 
-system_name=gets.chomp #запрашиваем у пользователя имя системы и обрезаем ей \n
+system_name="TTP-2B" #gets.chomp #запрашиваем у пользователя имя системы и обрезаем ей \n
 
 #получаем данные с сайта в формате json и преобразуем их в хеш
-result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),
-["#{system_name}"].to_json).body)
+result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),["#{system_name}"].to_json).body)
 
 #проверяем что это действительно солнечная система, иначе прерываем программу
 abort "Такой системы нет!" unless result.key?("systems")
@@ -61,17 +61,16 @@ end
 #проверяем какие Tier2 ресурсы можно сделать в системе из Tier1 - НЕ РАБОТАЕТ
 system_tier2 = []
 Tier2.each do |key, value2|
-    system_tier2 << key if value2 == system_tier1&value2
+    byebug
+    system_tier2 << key if value2 == system_tier1 & value2
     #system_tier2 << key if value2.difference(system_tier1).empty?    другой вариант
 end
-
-puts system_tier2
 
 #выводим виды планет и ресурсов в заданной системе
 puts planets
 #puts "\nПланеты системы: #{planets.each_key(key)} (#{planets.each_value(value)})"
 puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
 puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
-#puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
+puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
 #puts "Ресурсы Tier3: #{system_tier3.join(', ')}"
 #puts "Ресурсы Tier4: #{system_tier4.join(', ')}"
