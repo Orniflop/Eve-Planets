@@ -77,8 +77,10 @@ Tier4.each do |key, value|
 end
 
 #выводим виды планет и ресурсов в заданной системе
-puts planets
-#puts "\nПланеты системы: #{planets.each_key(key)} (#{planets.each_value(value)})"
+planets.each do |key, value|
+    puts "Планета: #{key.to_s} - #{value.to_s}"
+end
+
 puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
 puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
 puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
