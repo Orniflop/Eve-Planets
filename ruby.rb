@@ -58,16 +58,17 @@ system_Raw_Resource.each do |value1|
     end
 end
 
-#проверяем какие Tier2 ресурсы можно сделать в системе - СДЕЛАТЬ МЕТОД
-system_tier2 = []
-Tier2.each do |key, value|
-    system_tier2 << key if value.difference(system_tier1).empty?
+#создаем метод для проверки ресурсов Tier2 и Tier3 и используем его
+def system_tiers23 (arr1, arr2)
+    arr3=[]
+    arr1.each do |key, value|
+        arr3 << key if value.difference(arr2).empty?
+    end
+    return arr3    
 end
 
-system_tier3 = []
-Tier3.each do |key, value|
-    system_tier3 << key if value.difference(system_tier2).empty?
-end
+system_tier2 = system_tiers23(Tier2, system_tier1)
+system_tier3 = system_tiers23(Tier3, system_tier2)
 
 #проверяем какие Tier4 ресурсы можно сделать в системе
 system_tier4 = []
