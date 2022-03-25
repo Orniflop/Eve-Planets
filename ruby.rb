@@ -4,7 +4,7 @@ require 'uri'
 require 'json'
 #require "byebug" byebug
 
-system_name="TTP-2B" #gets.chomp #для примера можно ввести TTP-2B запрашиваем у пользователя имя системы и обрезаем ей \n
+system_name=gets.chomp #для примера можно ввести TTP-2B запрашиваем у пользователя имя системы и обрезаем ей \n
 
 #получаем данные с сайта в формате json, пример {"systems":[{"id":30000812,"name":"TTP-2B"}]}, и преобразуем их в хеш
 result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),["#{system_name}"].to_json).body)
