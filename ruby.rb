@@ -4,15 +4,15 @@ require 'uri'
 require 'json'
 #require "byebug" byebug
 
-system_name="TTP-2B" #gets.chomp #запрашиваем у пользователя имя системы и обрезаем ей \n
+system_name="TTP-2B" #gets.chomp #для примера можно ввести TTP-2B запрашиваем у пользователя имя системы и обрезаем ей \n
 
-#получаем данные с сайта в формате json и преобразуем их в хеш
+#получаем данные с сайта в формате json, пример {"systems":[{"id":30000812,"name":"TTP-2B"}]}, и преобразуем их в хеш
 result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),["#{system_name}"].to_json).body)
 
 #проверяем что это действительно солнечная система, иначе прерываем программу
 abort "Такой системы нет!" unless result.key?("systems")
 
-#получаем из хеша для TTP-2B: {"systems":[{"id":30000812,"name":"TTP-2B"}]} значение 30000812 
+#получаем из хеша значение 30000812 
 system_id = result.dig('systems', 0, 'id')
 
 #получаем информацию о системе по ее id и из нее выбираем в массив хеши с планетами системы
@@ -76,12 +76,15 @@ Tier4.each do |key, value|
     system_tier4 << key if value.difference(system_tier3+system_tier1).empty?
 end
 
-#выводим виды планет и ресурсов в заданной системе
+#преобразуем хеш со списком планет в массив для вывода на экран
+planets_screen=[]
 planets.each do |key, value|
-    puts "Планета: #{key.to_s} - #{value.to_s}"
+    planets_screen << "#{key.to_s} - #{value.to_s}"
 end
 
-puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}" #вывод массива в строку через запятую
+#выводим массивы планет и ресурсов в заданной системе в строку через запятую
+puts "Планеты системы: #{planets_screen.join(', ')}"
+puts "\nБазовые ресурсы: #{system_Raw_Resource.join(', ')}"
 puts "\nРесурсы Tier1: #{system_tier1.join(', ')}"
 puts "\nРесурсы Tier2: #{system_tier2.join(', ')}"
 puts "\nРесурсы Tier3: #{system_tier3.join(', ')}"
