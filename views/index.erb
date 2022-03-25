@@ -1,1 +1,11 @@
-<h1>HI!<h1>
+<h1>HI!</h1>
+
+<p>Введите имя системы: <%=@system_name%></p>
+
+<form action ="/" method="POST">
+    <input type="text" name="system_name" />
+    <input type="submit" />
+</form>
+
+<h1>Список планет в системе:<h1>
+<p><%=@result%></p>
