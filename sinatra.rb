@@ -67,5 +67,10 @@ post '/' do
     @system_tier2 = system_tiers23(Tier2, @system_tier1)
     @system_tier3 = system_tiers23(Tier3, @system_tier2)
 
+    @system_tier4 = []
+    Tier4.each do |key, value|
+        @system_tier4 << key if value.difference(@system_tier3+@system_tier1).empty?
+    end
+
     erb :index
 end
