@@ -1,27 +1,28 @@
 <html>
+    <head>
+    <link href="/styles.css" rel="stylesheet" media="all" />
+    </head>
 
-<head> </head>
+    <body>
+        Введите имя системы: <%=@system_name%>
 
-<body>
-    <h1>Введите имя системы: <%=@system_name%></h1>
+        <form action ="/" method="POST">
+            <input type="text" name="system_name" />
+            <input type="submit" />
+        </form>
 
-    <form action ="/" method="POST">
-        <input type="text" name="system_name" />
-        <input type="submit" />
-    </form>
-
-    <p><%=@message%></p>
-    <h1>Список планет в системе:<h1>
-    <p><%=@planets_screen%></p>
-    <h1>Базовые ресурсы в системе:<h1>
-    <p><%=@system_Raw_Resource%></p>
-    <h1>Ресурсы tier1 в системе:<h1>
-    <p><%=@system_tier1%></p>
-    <h1>Ресурсы tier2 в системе:<h1>
-    <p><%=@system_tier2%></p>
-    <h1>Ресурсы tier3 в системе:<h1>
-    <p><%=@system_tier3%></p>
-    <h1>Ресурсы tier4 в системе:<h1>
-    <p><%=@system_tier4%></p>
-</body>
+        <%=@message%>
+        Список планет в системе:
+        <%=@planets_screen%>
+        Базовые ресурсы в системе:
+        <%=@system_Raw_Resource%>
+        Ресурсы tier1 в системе:
+        <%=@system_tier1%>
+        Ресурсы tier2 в системе:
+        <%=@system_tier2%>
+        Ресурсы tier3 в системе:
+        <%=@system_tier3%>
+        Ресурсы tier4 в системе:
+        <%=@system_tier4%>
+    </body>
 </html>
