@@ -30,6 +30,11 @@ post '/' do
         planets[key] = JSON.parse(Net::HTTP.get(URI("https://esi.evetech.net/latest/universe/types/#{value}/?datasource=tranquility&language=en")))["name"].chop.sub("Planet (", "")
     end
 
+    @planets_screen=[]
+    planets.each do |key, value|
+        @planets_screen << "#{key.to_s} - #{value.to_s}"
+    end
+
     Raw_Resource={"Aqueous Liquids"=>["Barren","Storm","Temperate","Ice","Gas","Oceanic"],"Autotrophs"=>["Temperate"],"Base Metals"=>["Barren","Storm","Gas","Plasma","Lava"],"Carbon Compounds"=>["Barren","Temperate","Oceanic"],"Complex Organisms"=>["Temperate","Oceanic"],"Felsic Magma"=>["Lava"],"Heavy Metals"=>["Ice","Plasma","Lava"],"Ionic Solutions"=>["Storm","Gas"],"Microorganisms"=>["Barren","Temperate","Ice","Oceanic"],"Noble Gas"=>["Storm","Ice","Gas"],"Noble Metals"=>["Barren","Plasma"],"Non-CS Crystals"=>["Plasma","Lava"],"Planktic Colonies"=>["Ice","Oceanic"],"Reactive Gas"=>["Gas"],"Suspended Plasma"=>["Storm","Plasma","Lava"]}
     Tier1={"Aqueous Liquids"=>["Water"],"Autotrophs"=>["Industrial Fibers"],"Base Metals"=>["Reactive Metals"],"Carbon Compounds"=>["Biofuels"],"Complex Organisms"=>["Proteins"],"Felsic Magma"=>["Silicon"],"Heavy Metals"=>["Toxic Metals"],"Ionic Solutions"=>["Electrolytes"],"Microorganisms"=>["Bacteria"],"Noble Gas"=>["Oxygen"],"Noble Metals"=>["Precious Metals"],"Non-CS Crystals"=>["Chiral Structures"],"Planktic Colonies"=>["Biomass"],"Reactive Gas"=>["Oxidizing Compound"],"Suspended Plasma"=>["Plasmoids"]}
     Tier2={"Biocells"=>["Biofuels","Precious Metals"],"Construction Blocks"=>["Toxic Metals","Reactive Metals"],"Consumer Electronics"=>["Toxic Metals", "Chiral Structures"],"Coolant"=>["Electrolytes","Water"],"Enriched Uranium"=>["Toxic Metals","Precious Metals"],"Fertilizer"=>["Bacteria","Proteins"],"Genetically Enhanced Livestock"=>["Proteins","Biomass"],"Livestock"=>["Biofuels","Proteins"],"Mechanical Parts"=>["Reactive Metals","Precious Metals"],"Microfiber Shielding"=>["Silicon","Industrial Fibers"],"Miniature Electronics"=>["Silicon","Chiral Structures"],"Nanites"=>["Reactive Metals","Bacteria"],"Oxides"=>["Oxidizing Compound","Oxygen"],"Polyaramids"=>["Oxidizing Compound","Industrial Fibers"],"Polytextiles"=>["Biofuels","Industrial Fibers"],"Rocket Fuel"=>["Electrolytes","Plasmoids"],"Silicate Glass"=>["Oxidizing Compound","Silicon"],"Superconductors"=>["Plasmoids","Water"],"Supertensile Plastics"=>["Oxygen","Biomass"],"Synthetic Oil"=>["Electrolytes","Oxygen"],"Test Cultures"=>["Bacteria","Water"],"Transmitter"=>["Chiral Structures","Plasmoids"],"Viral Agent"=>["Bacteria","Biomass"],"Water-Cooled CPU"=>["Reactive Metals","Water"]}
@@ -42,8 +47,25 @@ post '/' do
             system_Raw_Resource<<key if value2.include?(value1)
         end
     end
-    @planets=planets
     @system_Raw_Resource = system_Raw_Resource.uniq
+
+    @system_tier1 = []
+    system_Raw_Resource.each do |value1|
+        Tier1.each do |key, value2|
+            @system_tier1 << value2[0] if key.include?(value1)
+        end
+    end
+
+    def system_tiers23 (arr1, arr2)
+        arr3=[]
+        arr1.each do |key, value|
+            arr3 << key if value.difference(arr2).empty?
+        end
+        return arr3    
+    end
+    
+    @system_tier2 = system_tiers23(Tier2, @system_tier1)
+    @system_tier3 = system_tiers23(Tier3, @system_tier2)
 
     erb :index
 end
