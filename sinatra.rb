@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/reloader"
 require 'net/http'
 require 'uri'
 require 'json'
