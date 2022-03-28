@@ -12,7 +12,7 @@ post '/' do
     result = JSON.parse(Net::HTTP.post(URI("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en"),["#{@system_name}"].to_json).body)
     
     if result.has_key?("systems")==false
-        erb :mistake
+        @message="Такой системы нет!"
 
     else
         system_id = result.dig('systems', 0, 'id')
