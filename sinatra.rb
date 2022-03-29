@@ -3,7 +3,6 @@ require "sinatra/reloader"
 require 'net/http'
 require 'uri'
 require 'json'
-require 'bootstrap'
 
 get '/' do
     erb :index
