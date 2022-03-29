@@ -1,5 +1,11 @@
 /*комментарий*/
-h1 {
-    color:red;
-    font: 32px trattatello;
+.image1 {
+    display: block;
+    height: auto;
+    max-width: 50%;
+    /* дополнительно их выровняем по центру */
+    margin-left: auto;
+    margin-right: auto;
+    /* и добавим внешний нижний отступ */
+    margin-bottom: 15px;
 }
