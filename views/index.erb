@@ -13,12 +13,13 @@
     </head>
     <body>
         <p class="h1 text-center text-primary">EVE.Planets</p>
-        <p class="h2 text-primary">Введите имя системы: <%=@system_name%></p>
-
-        <form action ="/" method="POST">
-            <input type="text" name="system_name" />
+       
+        <form class="form-inline" action ="/" method="POST">
+            <label for="colFormLabelSm" class="h2 text-primary">Введите название системы:</label>
+            <input id="colFormLabelSm" type="text" name="system_name"/>
             <input type="submit" class="btn btn-primary"></button>
         </form>
+
 
         <%=@message%>
         Список планет в системе:
