@@ -22,10 +22,15 @@
 
         <%=@message%>
 
-        Список планет в системе:
-       <%=@planets_screen%>
+        <p class="h3 text-primary mx-3">Список планет в системе:</p>
+        <%=@planets_screen%>
 
-        
+        <ul class="list-group">
+        <%if @planets_screen == true then @planets_screen.each do |value|%>
+        <li class="list-group-item"><%= value %></li>
+        <%end%>
+        <%end%>
+        </ul>
 
 
         Базовые ресурсы в системе:
