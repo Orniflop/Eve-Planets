@@ -5,6 +5,7 @@ require 'uri'
 require 'json'
 
 get '/' do
+    @planets_screen=[]
     erb :index
 end
 
