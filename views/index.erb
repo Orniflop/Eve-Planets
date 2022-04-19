@@ -37,7 +37,11 @@
         </ul>
 
         <p class="h4 text-warning mx-3">Ресурсы tier1 в системе:</p>
-        <%=@system_tier1%>
+         <ul>
+            <%@system_tier1.each do |value|%>
+            <li><p class="h5 text-warning"><%= value %></p></li>
+            <%end%>
+        </ul>
 
         <p class="h4 text-warning mx-3">Ресурсы tier2 в системе:</p>
         <%=@system_tier2%>
