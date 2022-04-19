@@ -51,12 +51,13 @@ post '/' do
         end
         @system_Raw_Resource = system_Raw_Resource.uniq
 
-        @system_tier1 = []
+        system_tier1 = []
         system_Raw_Resource.each do |value1|
             Tier1.each do |key, value2|
-                @system_tier1 << value2[0] if key.include?(value1)
+                system_tier1 << value2[0] if key.include?(value1)
             end
         end
+        @system_tier1 = system_tier1.uniq
 
         def system_tiers23 (arr1, arr2)
             arr3=[]
