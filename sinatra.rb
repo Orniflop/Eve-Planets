@@ -6,6 +6,8 @@ require 'json'
 
 get '/' do
     @planets_screen=[]
+    @system_Raw_Resource = []
+    @system_tier1 = []
     erb :index
 end
 
