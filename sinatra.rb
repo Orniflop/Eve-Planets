@@ -5,9 +5,12 @@ require 'uri'
 require 'json'
 
 get '/' do
-    @planets_screen=[]
+    @planets_screen = []
     @system_Raw_Resource = []
     @system_tier1 = []
+    @system_tier2 = []
+    @system_tier3 = []
+    @system_tier4 = []
     erb :index
 end
 
