@@ -22,11 +22,11 @@
 
         <%=@message%>
 
-        <p class="h4 text-primary mx-3">Список планет в системе:</p>
+        <p class="h4 text-warning mx-3">Список планет в системе:</p>
         
         <ul>
             <%@planets_screen.each do |value|%>
-            <li><p class="text-success"><%= value %></p></li>
+            <li><p class="h5 text-warning"><%= value %></p></li>
             <%end%>
         </ul>
 
